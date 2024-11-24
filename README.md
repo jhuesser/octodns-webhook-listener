@@ -18,8 +18,8 @@ My goal is, that when I add a new DNS entry in [netbox](https://github.com/netbo
 2. Edit the `config.yaml` file according to your needs. Currently it's configured to get the data from the yaml file & netbox and push it to digital ocean. [How to configure a basic setup](https://github.com/octodns/octodns/tree/main/examples/basic)
 3. If you use a different provider, make sure you add the module to `requirements.txt`
 4. Rename `.env.dist`to `.env`and fill in the values. Generate the tokens from your DNS provider & netbox. For `NETBOX_HOST`enter the FQDN of your netbox instance (eg. `netbox.example.com`). For the API Key use a random string. Netbox will use it to authenticate to the flask app.
-5. Build the conainter `docker build -t octodns-webhook .``
-6. Run it: `docker run -d --name octodns-webhook --env-file .env -p 8080:8080 octodns-webhook``
+5. Build the conainter `docker build -t octodns-webhook .`
+6. Run it: `docker run -d --name octodns-webhook --env-file .env -p 8080:8080 octodns-webhook`
 
 
 # Test
