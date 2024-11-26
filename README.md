@@ -3,6 +3,10 @@
 This is a simple flask app, which exposes [Octo-dns](https://github.com/octodns/octodns) as a webhook.
 My goal is, that when I add a new DNS entry in [netbox](https://github.com/netbox-community/netbox), the DNS entry should be automaticlly be created on the DNS server.
 
+# ToDo
+
+- [ ] Use docker volumes instead of copying files
+
 
 # How to get this thing running
 
