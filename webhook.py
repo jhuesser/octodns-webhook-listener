@@ -6,6 +6,8 @@ app = Flask(__name__)
 
 # Retrieve API key from environment variable
 API_KEY = os.getenv('API_KEY')
+if not API_KEY:
+    raise ValueError("Environment variable 'API_KEY' is not set. Please set it to secure the API.")
 
 @app.before_request
 def check_api_key():

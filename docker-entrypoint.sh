@@ -1,23 +1,31 @@
 #!/bin/bash
 
-# Colors and Icons
 GREEN="\033[0;32m"
 CYAN="\033[0;36m"
 YELLOW="\033[1;33m"
+RED="\033[0;31m"
 RESET="\033[0m"
 CHECK_MARK="✅"
 WARNING="⚠️"
 INFO="ℹ️"
 
-
-# Replace placeholders in config.yaml and domain YAML files with environment variables
-echo -e "${CYAN}${INFO} Replacing placeholders in config.yaml and domain YAML files...${RESET}"
-
-sed -i "s|\${DO_TOKEN}|$DO_TOKEN|g" /opt/octodns-webhook/config/config.yaml
-sed -i "s|\${NETBOX_HOST}|$NETBOX_HOST|g" /opt/octodns-webhook/config/config.yaml
-sed -i "s|\${NETBOX_TOKEN}|$NETBOX_TOKEN|g" /opt/octodns-webhook/config/config.yaml
-sed -i "s|\${MY_DOMAIN}|$MY_DOMAIN|g" /opt/octodns-webhook/config/config.yaml
+# Ensure API_KEY is set
+if [ -z "$API_KEY" ]; then
+    echo -e "${RED}${WARNING} Error: API_KEY environment variable is not set.${RESET}"
+    exit 1
+fi
 
 
-# Execute the CMD passed to the container
+source /opt/octodns-webhook/venv/bin/activate
+
+
+# Check if requirements.txt is mapped and install dependencies
+if [ -f /opt/octodns-webhook/requirements.txt ]; then
+    echo -e "${CYAN}${INFO} Installing user-provided Python dependencies...${RESET}"
+    /opt/octodns-webhook/venv/bin/pip install -r /opt/octodns-webhook/requirements.txt
+else
+    echo -e "${YELLOW}${INFO}No requirements.txt provided. Proceeding with base dependencies.${RESET}"
+fi
+
+echo -e "${GREEN}${CHECK_MARK} Starting application...${RESET}"
 exec "$@"

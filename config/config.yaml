@@ -2,23 +2,23 @@
 providers:
   config:
     class: octodns.provider.yaml.YamlProvider
-    directory: ./config
+    directory: ./config/domains
     default_ttl: 300
     enforce_order: True
   digitalocean:
     class: octodns_digitalocean.DigitalOceanProvider
-    token: ${DO_TOKEN}
+    token: <YOUR_DIGITAL_OCEAN_TOKEN>
   netbox:
     class: octodns_netbox.NetboxSource
-    url: https://${NETBOX_HOST}
-    token: ${NETBOX_TOKEN}
+    url: https://<YOUR_NETBOX_URL>
+    token: <YOUR_NETBOX_API_TOKEN
     ttl: 300
     field_name: dns_name
 
 
 
 zones:
- ${MY_DOMAIN}.:
+ example.com.:
     sources:
       - config
       - netbox
